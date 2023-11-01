@@ -225,7 +225,7 @@ def fibonacci_iterative(n)
   arr2
 end
 
-print fibonacci_iterative(5)
+# print fibonacci_iterative(5)
 # ## Binary search
 
 # The binary search algorithm begins by comparing the target value to the value of
@@ -247,17 +247,36 @@ print fibonacci_iterative(5)
 # location of the found object (or `nil` if not found!). **Hint:** you will
 # probably want to use subarrays.
 
+def bsearch(arr1, target)
+    # 0, 1, 2, 3, 4, 5, 6   # length =  7   ( want index 3)
+    # (length - 1) / 2 = 3
+    return nil if arr1.length == 0
+    
+    middle_index = (arr1.length - 1) / 2    # [4, 5, 6]   # 2 # 1 # 0   (+ 1) (+ 1)
+    if arr1[middle_index] == target      
+      return middle_index
+    else
+      if target > arr1[middle_index]
+        return nil if bsearch(arr1[(middle_index + 1)...arr1.length], target) == nil
+        bsearch(arr1[(middle_index + 1)...arr1.length], target) + middle_index + 1    
+        # target is greater, check
+      else
+        bsearch(arr1[0...middle_index], target)
+      end
+    end
+end
 # Make sure that these test cases are working:
 
-# ```rb
-# bsearch([1, 2, 3], 1) # => 0
-# bsearch([2, 3, 4, 5], 3) # => 1
-# bsearch([2, 4, 6, 8, 10], 6) # => 2
-# bsearch([1, 3, 4, 5, 9], 5) # => 3
-# bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-# bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-# bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+# ```rb   # returns index
+p bsearch([1, 2, 3], 1) # => 0
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 # ```
+
 
 # ## Merge sort
 
