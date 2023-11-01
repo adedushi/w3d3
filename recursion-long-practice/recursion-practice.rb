@@ -318,7 +318,7 @@ def merge(arr1, arr2)
   arr3 + arr2 + arr1
 end
 
-print merge_sort([6, 5, 3, 1, 8, 7, 2, 4])
+# print merge_sort([6, 5, 3, 1, 8, 7, 2, 4])
 
 
 # ## Array subsets
@@ -333,7 +333,37 @@ print merge_sort([6, 5, 3, 1, 8, 7, 2, 4])
 # # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 # ```
 
+def subsets(arr1)
+    return [[]] if arr1.length == 0
+    return [[], arr1.dup] if arr1.length == 1
+
+    last_subset = subsets(arr1[0...-1])
+    arr2 = []
+    last_subset.each do |sub_arr|
+      sub_arr += [arr1[-1]]
+      arr2 << sub_arr
+    end
+    last_subset + arr2
+end
+
+# p subsets([]) # => [[]]
+# p subsets([1]) # => [[], [1]]
+# p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# p subsets([1, 2, 3])
+# # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
 # You can implement this as an Array method if you prefer.
+
+# subsets[1, 2, 3] = 
+# last_subset = subsets[1, 2]
+
+# arr2 = []
+# last_subset.each do |sub_arr|
+#   sub_arr += [subsets[-1]]
+#   arr2 << sub_arr
+# end
+
+# last_subset + arr2
+
 
 # **Hint**: For `subsets([1, 2, 3])`, there are two kinds of subsets:
 
