@@ -383,7 +383,26 @@ end
 #                         #     [2, 1, 3], [2, 3, 1],
 #                         #     [3, 1, 2], [3, 2, 1]]
 
-# ```
+def permutations(arr)
+  return [[]] if arr.length == 0
+  return [arr] if arr.length == 1
+  
+  last_permutation = permutations(arr[0...-1])
+  last_ele = arr[-1]
+
+  arr2 = []
+  last_permutation.each do |sub_arr|
+    new_sub_arr = []
+    (0..sub_arr.length).each do |i1|
+      new_sub_arr = sub_arr[0...i1] + [last_ele] + sub_arr[i1...sub_arr.length]
+      arr2 << new_sub_arr
+    end
+  end
+
+  arr2
+end
+
+# p permutations([1, 2, 3, 4])
 
 # You can use Ruby's built in [`Array#permutation`][ruby-permutations] method to
 # get a better understanding of what you will be building (but do **NOT** use this
@@ -416,6 +435,32 @@ end
 # - Take as many of the biggest coins as possible and add them to your result.
 # - Add to the result by recursively calling your method on the remaining amount,
 #   leaving out the biggest coin, until the remainder is zero.
+
+def greedy_make_change(amount, coins)
+  raise error if coins.length == 0 && amount > 0
+  if amount == 0
+    if coins[0] == nil
+      return []
+    else
+      return coins[0]
+    end
+  end
+
+  current_coin = coins.sort[-1]
+
+  coins_used = []
+  while amount >= current_coin
+    coins_used << current_coin
+    amount -= current_coin
+  end
+
+  coins.shift
+  if greedy_make_change(amount, coins) != nil
+  coins_used << greedy_make_change(amount, coins)
+  end
+end
+
+print greedy_make_change(24, [10,7,1])
 
 # Once you have a working greedy version, talk with your partner about refactoring
 # this to `make_better_change`. What's wrong with `greedy_make_change`?
