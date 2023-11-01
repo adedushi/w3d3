@@ -267,14 +267,14 @@ def bsearch(arr1, target)
 end
 # Make sure that these test cases are working:
 
-# ```rb   # returns index
-p bsearch([1, 2, 3], 1) # => 0
-p bsearch([2, 3, 4, 5], 3) # => 1
-p bsearch([2, 4, 6, 8, 10], 6) # => 2
-p bsearch([1, 3, 4, 5, 9], 5) # => 3
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+# # ```rb   # returns index
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 # ```
 
 
@@ -292,6 +292,34 @@ p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 # [wiki-merge-sort]: http://en.wikipedia.org/wiki/Merge_sort
 # [wiki-merge-gif]: https://en.wikipedia.org/wiki/Merge_sort#/media/File:Merge-sort-example-300px.gif
 # [merge-diagram]: https://assets.aaonline.io/fullstack/ruby/assets/merge-sort-diagram.png
+
+def merge_sort(arr)
+  return [] if arr.length == 0 
+  return arr if arr.length == 1
+  
+  middle = (arr.length - 1) / 2
+  arr1 = arr[0..middle]
+  arr2 = arr[middle + 1...arr.length]
+  
+  merge(merge_sort(arr1), merge_sort(arr2))
+end
+
+def merge(arr1, arr2)
+  arr3 = []
+  while arr1.length != 0 && arr2.length != 0
+    if arr1[0] < arr2[0]
+      arr3 << arr1[0]
+      arr1.shift
+    else
+      arr3 << arr2[0]
+      arr2.shift
+    end 
+  end
+  arr3 + arr2 + arr1
+end
+
+print merge_sort([6, 5, 3, 1, 8, 7, 2, 4])
+
 
 # ## Array subsets
 
