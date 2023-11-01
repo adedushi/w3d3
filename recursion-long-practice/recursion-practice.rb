@@ -84,9 +84,9 @@ def exponent_2(b, n)
   end
 end
 
-p exponent_2(5, 1)
-p exponent_2(5, 2)
-p exponent_2(5, 3)
+# p exponent_2(5, 1)
+# p exponent_2(5, 2)
+# p exponent_2(5, 3)
 # # recursion 2
 # exp(b, 0) = 1
 # exp(b, 1) = b
@@ -173,6 +173,25 @@ p exponent_2(5, 3)
 # **You should be able to handle "mixed" arrays**. For instance:
 # `[1, [2], [3, [4]]]`.
 
+class Array
+
+  def deep_dup
+    arr2 = []
+
+    self.each do |ele|
+      if ele.is_a?(Array)
+        arr2 << ele.deep_dup
+      else
+        arr2 << ele
+      end
+    end
+
+    return arr2
+  end
+
+end
+
+
 # ## Fibonacci
 
 # Write a recursive and an iterative Fibonacci method. The method should take in
@@ -182,6 +201,31 @@ p exponent_2(5, 3)
 # this just passing a single argument for the number of Fibonacci numbers
 # requested.
 
+def fibonacci(n)
+  return [0] if n == 1
+  return [0,1] if n == 2
+
+  last_fib = fibonacci(n-1)
+  last_fib + [last_fib[-1] + last_fib[-2]]
+end
+
+def fibonacci_iterative(n)
+  arr2 = []
+
+  (1..n).each do |i1|
+    if i1 == 1 
+      arr2 << 0 
+    elsif i1 == 2
+      arr2 << 1
+    else
+    arr2 << (arr2[i1 - 2] + arr2[i1 - 3])
+    end
+  end
+
+  arr2
+end
+
+print fibonacci_iterative(5)
 # ## Binary search
 
 # The binary search algorithm begins by comparing the target value to the value of
